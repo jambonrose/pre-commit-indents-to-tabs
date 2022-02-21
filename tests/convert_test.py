@@ -22,7 +22,7 @@ def test_convert_indents_no_changes(file_name: str) -> None:
     expected = load_file(file_name)
     buffer = BytesIO(expected)
 
-    return_code = convert_indents(buffer, indent_size)
+    return_code = convert_indents([buffer], indent_size)
     buffer.seek(0)
 
     assert buffer.read() == expected
@@ -46,7 +46,7 @@ def test_convert_indents_changes(
     buffer = load_file_to_buffer(input_file_name)
     expected = load_file(expected_file_name)
 
-    return_code = convert_indents(buffer, indent_size)
+    return_code = convert_indents([buffer], indent_size)
     buffer.seek(0)
 
     assert buffer.read() == expected
