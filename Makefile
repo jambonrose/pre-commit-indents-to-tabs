@@ -16,10 +16,13 @@ $(ITT_VENV)/bin/activate:
 
 .PHONY: test ## Test the project
 test: $(ITT_VENV)/bin/activate
-
 	$(ITT_VENV)/bin/mypy src
 	$(ITT_VENV)/bin/mypy tests
 	$(ITT_VENV)/bin/pytest
+
+.PHONY: tox ## Test the project in multiple Python environments
+tox: $(ITT_VENV)/bin/activate
+	$(ITT_VENV)/bin/tox
 
 .PHONY: build ## Build the project for distribution
 build: $(ITT_VENV)/bin/activate
@@ -34,6 +37,7 @@ clean:
 purge: clean
 	rm -rf .mypy_cache
 	rm -rf .pytest_cache
+	rm -rf .tox
 	rm -rf $(ITT_VENV)
 
 .PHONY: help ## List make targets with description

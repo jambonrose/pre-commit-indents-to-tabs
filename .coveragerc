@@ -1,6 +1,11 @@
+[paths]
+source =
+    src/indents_to_tabs
+    */site-packages/indents_to_tabs
+
 [run]
 branch = true
-source = src/
+source = indents_to_tabs
 
 [report]
 show_missing = true

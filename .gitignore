@@ -12,3 +12,4 @@ dist
 
 # Testing / Coverage artifacts
 .coverage
+.tox
