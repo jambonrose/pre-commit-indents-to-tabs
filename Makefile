@@ -11,7 +11,7 @@ ITT_PYTHON ?= python3
 $(ITT_VENV)/bin/activate:
 	mkdir -p $(ITT_VENV)
 	$(ITT_PYTHON) -m venv $(ITT_VENV)
-	$(ITT_VENV)/bin/pip install build pytest mypy
+	$(ITT_VENV)/bin/pip install -r requirements-dev.txt
 	$(ITT_VENV)/bin/pip install -e .
 
 .PHONY: test ## Test the project
