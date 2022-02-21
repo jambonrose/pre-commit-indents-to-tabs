@@ -12,10 +12,13 @@ $(ITT_VENV)/bin/activate:
 	mkdir -p $(ITT_VENV)
 	$(ITT_PYTHON) -m venv $(ITT_VENV)
 	$(ITT_VENV)/bin/pip install build pytest mypy
+	$(ITT_VENV)/bin/pip install -e .
 
 .PHONY: test ## Test the project
 test: $(ITT_VENV)/bin/activate
+
 	$(ITT_VENV)/bin/mypy src
+	$(ITT_VENV)/bin/mypy tests
 	$(ITT_VENV)/bin/pytest
 
 .PHONY: build ## Build the project for distribution
