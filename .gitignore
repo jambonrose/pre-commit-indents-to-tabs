@@ -9,3 +9,6 @@ __pycache__/
 *.egg
 *.egg-info/
 dist
+
+# Testing / Coverage artifacts
+.coverage
