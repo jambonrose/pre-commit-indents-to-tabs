@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import subprocess
 from typing import Sequence
 
 from .convert import convert_indents
@@ -19,6 +20,11 @@ def main(argv: Sequence[str] | None = None) -> int:
         help="Files to convert",
     )
     parser.add_argument(
+        "--fmt",
+        type=str,
+        help="Comma-delimited command to run before indent replacement",
+    )
+    parser.add_argument(
         "--spaces",
         type=int,
         default=2,
@@ -26,6 +32,10 @@ def main(argv: Sequence[str] | None = None) -> int:
         help="How many spaces to replace with a tab",
     )
     args = parser.parse_args(argv)
+
+    if args.fmt:
+        fmt_cmd: list[str] = args.fmt.split(",")
+        subprocess.run(fmt_cmd)
 
     return convert_indents(args.filenames, args.spaces)
 
