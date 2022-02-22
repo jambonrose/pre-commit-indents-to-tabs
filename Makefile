@@ -3,14 +3,16 @@
 # ITT => Indents To Tabs
 # ITT_VENV is the name of directory to store the virtual environment
 ITT_VENV ?= .venv
-# ITT_PYTHON is invoked to create the venv
-ITT_PYTHON ?= python3
+# ROOT_PYTHON is invoked to create the venv
+ROOT_PYTHON ?= python3
+# ITT_PYTHON is used to invoke packages in the venv
+ITT_PYTHON ?= $(ITT_VENV)/bin/python3
 
 .DEFAULT_GOAL:=help
 
 $(ITT_VENV)/bin/activate:
 	mkdir -p $(ITT_VENV)
-	$(ITT_PYTHON) -m venv $(ITT_VENV)
+	$(ROOT_PYTHON) -m venv $(ITT_VENV)
 	$(ITT_VENV)/bin/pip install -r requirements-dev.txt
 	$(ITT_VENV)/bin/pip install -e .
 
@@ -25,8 +27,12 @@ tox: $(ITT_VENV)/bin/activate
 	$(ITT_VENV)/bin/tox
 
 .PHONY: build ## Build the project for distribution
-build: $(ITT_VENV)/bin/activate
-	$(ITT_VENV)/bin/python3 -m build
+build: clean $(ITT_VENV)/bin/activate
+	$(ITT_PYTHON) -m build
+
+.PHONY: release ## Upload build artifacts to PyPI
+release: $(ITT_VENV)/bin/activate
+	$(ITT_PYTHON) -m twine upload --repository testpypi dist/*
 
 .PHONY: clean ## Remove project development artifacts
 clean:
