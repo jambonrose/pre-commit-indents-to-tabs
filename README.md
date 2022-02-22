@@ -1,5 +1,35 @@
 # Pre-Commit Hook: Convert indents (from spaces) to tabs
 
+## Usage
+
+This project is intended to be used via
+[pre-commit](https://pre-commit.com) and the `.pre-commit-config.yaml`
+file.
+
+The code below demonstrates a minimal configuration for usage in
+`.pre-commit-config.yaml`.
+
+```yaml
+- repo: https://github.com/jambonrose/pre-commit-indents-to-tabs
+  rev: v0.0.1
+  hooks:
+      - id: indents-to-tabs
+```
+
+The configuration below will run the `terraform fmt -write` command
+before replacing spaces with tabs in the indents of Terraform files. The
+configuration below also demonstrats the use of the `--spaces` flag,
+although it is technically redundant as `2` is the default.
+
+```yaml
+- repo: https://github.com/jambonrose/pre-commit-indents-to-tabs
+  rev: v0.0.1
+  hooks:
+      - id: indents-to-tabs
+        args: ["--fmt=terraform,fmt,-write", "--spaces=2"]
+        types: ["terraform"]
+```
+
 ## Project Rationale
 
 I created this project as a reaction to the Terraform autoformatter.
